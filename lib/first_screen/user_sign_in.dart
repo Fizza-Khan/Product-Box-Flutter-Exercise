@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../Resources/AllColors.dart';
+import 'dart:async';
 
 class UserSignIn extends StatefulWidget {
   @override
@@ -17,6 +18,7 @@ class _UserSignInState extends State<UserSignIn> {
   var userDatalist;
   @override
   Widget build(BuildContext context) {
+    //final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: MyThemeData.themeData.backgroundColor,
       body: Center(
@@ -76,6 +78,7 @@ class _UserSignInState extends State<UserSignIn> {
                   builder: (BuildContext context) {
                     return new InkWell(
                         onTap: () {
+                          FocusScope.of(context).unfocus();
                           getUpdates();
                           if (name == null || password == null) {
                             print("Text Field Empty");
@@ -88,8 +91,10 @@ class _UserSignInState extends State<UserSignIn> {
                                     style: TextStyle(color: Colors.black)),
                                 duration: Duration(seconds: 3),
                               ));
-                              Navigator.of(context)
-                                  .pushNamed(UserDocuments.routeName);
+                              Timer(Duration(seconds: 3), () {
+                                Navigator.of(context)
+                                    .pushNamed(UserDocuments.routeName);
+                              });
                             } else {
                               print("Login UnSuccessful");
                               Scaffold.of(context).showSnackBar((new SnackBar(
