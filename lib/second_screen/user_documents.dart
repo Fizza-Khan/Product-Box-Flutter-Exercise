@@ -80,30 +80,33 @@ class _UserDocumentsState extends State<UserDocuments> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                InkWell(
-                    onTap: () {
-                      (stepsCount < 3)
-                          ? Scaffold.of(context).showSnackBar(new SnackBar(
-                              content: Text('Upload all files'),
-                              duration: Duration(seconds: 3),
-                            ))
-                          : Navigator.of(context).pushNamed(UserHome.routeName);
-                    },
-                    child: new Container(
-                        height: 49.0,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30.0),
-                          color: stepsCount < 3 ? Colors.grey : Colors.blue,
-                        ),
-                        child: Text(
-                          'DONE',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
+                Builder(builder: (BuildContext context) {
+                  return InkWell(
+                      onTap: () {
+                        (stepsCount < 4)
+                            ? Scaffold.of(context).showSnackBar(new SnackBar(
+                                content: Text('Upload all files'),
+                                duration: Duration(seconds: 3),
+                              ))
+                            : Navigator.of(context)
+                                .pushNamed(UserHome.routeName);
+                      },
+                      child: new Container(
+                          height: 49.0,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30.0),
+                            color: stepsCount < 4 ? Colors.grey : Colors.blue,
                           ),
-                        )))
+                          child: Text(
+                            'DONE',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          )));
+                })
               ],
             ),
           ],
@@ -118,7 +121,8 @@ class _UserDocumentsState extends State<UserDocuments> {
       onTap: () {
         if (profileStored == null) {
           if (stepsCount == 0) showChoiceDialog(context);
-        } else if (stepsCount > 0) profileView();
+        } else
+          profileView();
       },
     );
   }
@@ -129,7 +133,8 @@ class _UserDocumentsState extends State<UserDocuments> {
       onTap: () {
         if (licenseStored == null) {
           if (stepsCount == 1) showChoiceDialog(context);
-        } else if (stepsCount > 1) licenseView();
+        } else
+          licenseView();
       },
     );
   }
@@ -140,7 +145,8 @@ class _UserDocumentsState extends State<UserDocuments> {
       onTap: () {
         if (certificateStored == null) {
           if (stepsCount == 2) showChoiceDialog(context);
-        } else if (stepsCount > 2) certificateView();
+        } else
+          certificateView();
       },
     );
   }
@@ -151,7 +157,8 @@ class _UserDocumentsState extends State<UserDocuments> {
       onTap: () {
         if (passportStored == null) {
           if (stepsCount == 3) showChoiceDialog(context);
-        } else if (stepsCount > 3) passportView();
+        } else
+          passportView();
       },
     );
   }
@@ -185,8 +192,6 @@ class _UserDocumentsState extends State<UserDocuments> {
       elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(45),
-        // side: BorderSide(
-        //     color: stepsCount == cardNo ? Colors.cyanAccent : Colors.grey),
       ),
       child: ListTile(
           title: Row(
